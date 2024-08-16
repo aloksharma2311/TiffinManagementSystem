@@ -4,16 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 
 public class signUp extends JFrame implements ActionListener {
     JButton login, save;
-    JTextField username;
-    JTextField mobile_no;
-    JTextField address;
-    JTextField allergy;
-    JTextField email;
+    JTextField username, mobile_no, address, allergy, email;
     JPasswordField password;
     JCheckBox showPasswordCheckBox;
+    JComboBox<String> genderComboBox; // Gender dropdown
 
     signUp() {
         // Setting the frame size
@@ -21,15 +19,15 @@ public class signUp extends JFrame implements ActionListener {
         getContentPane().setBackground(Color.decode("#ffd13b"));
 
         JLabel titleLabel = new JLabel("SignUp");
-        titleLabel.setBounds(420, 20, 200, 50); // Adjust position and size as needed
-        titleLabel.setFont(new Font("Tahoma", Font.BOLD, 40)); // Set font and size
+        titleLabel.setBounds(420, 20, 200, 50);
+        titleLabel.setFont(new Font("Tahoma", Font.BOLD, 40));
         titleLabel.setForeground(Color.BLACK);
         add(titleLabel);
 
         // Create a panel for the line
         JPanel linePanel = new JPanel();
-        linePanel.setBackground(Color.decode("#d9d9d9")); // Set line color
-        linePanel.setBounds(250, 80, 500, 2); // Set position and thickness (2 pixels)
+        linePanel.setBackground(Color.decode("#d9d9d9"));
+        linePanel.setBounds(250, 80, 500, 2);
         add(linePanel);
 
         // Setting default close operation
@@ -37,74 +35,86 @@ public class signUp extends JFrame implements ActionListener {
 
         // Creating and positioning the labels
         JLabel l1 = new JLabel("Username");
-        l1.setBounds(270, 145, 150, 50);
+        l1.setBounds(270, 115, 150, 50);
         l1.setFont(new Font("Tahoma", Font.BOLD, 20));
         add(l1);
 
         JLabel l2 = new JLabel("Mobile No.");
-        l2.setBounds(270, 195, 150, 50);
+        l2.setBounds(270, 165, 150, 50);
         l2.setFont(new Font("Tahoma", Font.BOLD, 20));
         add(l2);
 
         JLabel l3 = new JLabel("Address");
-        l3.setBounds(270, 245, 150, 50);
+        l3.setBounds(270, 215, 150, 50);
         l3.setFont(new Font("Tahoma", Font.BOLD, 20));
         add(l3);
 
         JLabel l4 = new JLabel("Allergy");
-        l4.setBounds(270, 295, 150, 50);
+        l4.setBounds(270, 265, 150, 50);
         l4.setFont(new Font("Tahoma", Font.BOLD, 20));
         add(l4);
 
         JLabel l5 = new JLabel("E-mail");
-        l5.setBounds(270, 345, 150, 50);
+        l5.setBounds(270, 315, 150, 50);
         l5.setFont(new Font("Tahoma", Font.BOLD, 20));
         add(l5);
 
         JLabel l6 = new JLabel("Password");
-        l6.setBounds(270, 395, 150, 50);
+        l6.setBounds(270, 365, 150, 50);
         l6.setFont(new Font("Tahoma", Font.BOLD, 20));
         add(l6);
 
+        JLabel l7 = new JLabel("Gender");
+        l7.setBounds(270, 415, 150, 50);  // Position label for gender
+        l7.setFont(new Font("Tahoma", Font.BOLD, 20));
+        add(l7);
+
         // Creating and positioning the text fields
         username = new JTextField();
-        username.setBounds(470, 150, 250, 40);
+        username.setBounds(470, 120, 250, 40);
         username.setFont(new Font("Segoe", Font.PLAIN, 24));
         add(username);
 
         mobile_no = new JTextField();
-        mobile_no.setBounds(470, 200, 250, 40);
+        mobile_no.setBounds(470, 170, 250, 40);
         mobile_no.setFont(new Font("Segoe", Font.PLAIN, 24));
         add(mobile_no);
 
         address = new JTextField();
-        address.setBounds(470, 250, 250, 40);
+        address.setBounds(470, 220, 250, 40);
         address.setFont(new Font("Segoe", Font.PLAIN, 24));
         add(address);
 
         allergy = new JTextField();
-        allergy.setBounds(470, 300, 250, 40);
+        allergy.setBounds(470, 270, 250, 40);
         allergy.setFont(new Font("Segoe", Font.PLAIN, 24));
         add(allergy);
 
         email = new JTextField();
-        email.setBounds(470, 350, 250, 40);
+        email.setBounds(470, 320, 250, 40);
         email.setFont(new Font("Segoe", Font.PLAIN, 24));
         add(email);
 
         // Creating and positioning the password field
         password = new JPasswordField();
-        password.setBounds(470, 400, 250, 40);
+        password.setBounds(470, 370, 250, 40);
         add(password);
 
         // Creating and positioning the show password checkbox
         showPasswordCheckBox = new JCheckBox();
-        showPasswordCheckBox.setBounds(720, 409, 20, 20);
+        showPasswordCheckBox.setBounds(720, 380, 20, 20);
         showPasswordCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
         showPasswordCheckBox.addActionListener(this);
         add(showPasswordCheckBox);
 
-        // Creating and positioning the sign in button
+        // Creating and positioning the gender dropdown
+        String[] genders = { "Male", "Female", "Other" }; // Options for gender
+        genderComboBox = new JComboBox<>(genders);
+        genderComboBox.setBounds(470, 420, 250, 40); // Position dropdown for gender
+        genderComboBox.setFont(new Font("Segoe", Font.PLAIN, 20));
+        add(genderComboBox);
+
+        // Creating and positioning the log in button
         login = new JButton("Log In");
         login.setBounds(620, 500, 100, 50);
         login.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -148,8 +158,52 @@ public class signUp extends JFrame implements ActionListener {
             // Create and show the logIn page
             new logIn();
         } else if (e.getSource() == save) {
-            // Handle save action here (e.g., save data to the backend)
-            JOptionPane.showMessageDialog(this, "Data Saved!!");
+            // Save data to the database
+            String user = username.getText();
+            String pass = new String(password.getPassword());
+            String mobile = mobile_no.getText();
+            String addr = address.getText();
+            String alg = allergy.getText();
+            String mail = email.getText();
+            String gender = (String) genderComboBox.getSelectedItem(); // Get selected gender
+
+            // Validate mobile number length
+            if (mobile.length() != 10) {
+                JOptionPane.showMessageDialog(this, "Invalid Mobile Number! Please enter a 10-digit number.");
+                return; // Stop further processing if mobile number is invalid
+            }
+
+            try {
+                connection conn = new connection();
+
+                // Insert data into signup table
+                String signupQuery = "INSERT INTO signup (username, password, mobileno, address, allergy, email, gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement ps1 = conn.c.prepareStatement(signupQuery);
+                ps1.setString(1, user);
+                ps1.setString(2, pass);
+                ps1.setString(3, mobile);
+                ps1.setString(4, addr);
+                ps1.setString(5, alg);
+                ps1.setString(6, mail);
+                ps1.setString(7, gender);
+                ps1.executeUpdate();
+
+                // Insert data into login table
+                String loginQuery = "INSERT INTO login (username, password) VALUES (?, ?)";
+                PreparedStatement ps2 = conn.c.prepareStatement(loginQuery);
+                ps2.setString(1, user);
+                ps2.setString(2, pass);
+                ps2.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Sign Up Successful");
+
+                // Optionally, navigate to login page or home page
+                this.setVisible(false);
+                new logIn();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

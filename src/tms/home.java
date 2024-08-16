@@ -14,7 +14,7 @@ public class home extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel titleLabel = new JLabel("Welcome to the Home Page");
-        titleLabel.setBounds(200, 50, 800, 50);
+        titleLabel.setBounds(520, 50, 800, 50);
         titleLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
         titleLabel.setForeground(Color.BLACK);
         add(titleLabel);
