@@ -118,11 +118,11 @@ public class logIn extends JFrame implements ActionListener {
 
                 // Checking if any record found
                 if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Login Successful");
+                    JOptionPane.showMessageDialog(null, "Login Successful!!");
                     this.setVisible(false);
                     new home();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Invalid Credentials");
+                    JOptionPane.showMessageDialog(null, "Invalid Credentials!!");
                 }
 
             } catch (Exception ex) {

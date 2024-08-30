@@ -6,8 +6,8 @@ import java.awt.*;
 public class home extends JFrame {
 
     public home() {
-        // Set the frame size
-        setSize(1920, 1080);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         getContentPane().setBackground(Color.decode("#ffd13b"));
 
         // Setting default close operation
@@ -33,4 +33,3 @@ public class home extends JFrame {
         new home();
     }
 }
-

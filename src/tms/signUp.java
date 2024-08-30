@@ -169,7 +169,7 @@ public class signUp extends JFrame implements ActionListener {
 
             // Validate mobile number length
             if (mobile.length() != 10) {
-                JOptionPane.showMessageDialog(this, "Invalid Mobile Number! Please enter a 10-digit number.");
+                JOptionPane.showMessageDialog(this, "Invalid Mobile Number!! Please enter a 10-digit number.");
                 return; // Stop further processing if mobile number is invalid
             }
 
@@ -195,7 +195,7 @@ public class signUp extends JFrame implements ActionListener {
                 ps2.setString(2, pass);
                 ps2.executeUpdate();
 
-                JOptionPane.showMessageDialog(null, "Sign Up Successful");
+                JOptionPane.showMessageDialog(null, "Sign Up Successful!!");
 
                 // Optionally, navigate to login page or home page
                 this.setVisible(false);
