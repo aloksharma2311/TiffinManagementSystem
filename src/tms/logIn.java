@@ -19,8 +19,8 @@ public class logIn extends JFrame implements ActionListener {
         // Setting default close operation
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JLabel titleLabel = new JLabel("Log In");
-        titleLabel.setBounds(200, 20, 100, 30);
+        JLabel titleLabel = new JLabel("User LogIn");
+        titleLabel.setBounds(170, 20, 200, 30);
         titleLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
         titleLabel.setForeground(Color.BLACK);
         add(titleLabel);
@@ -113,14 +113,14 @@ public class logIn extends JFrame implements ActionListener {
                 connection conn = new connection();
 
                 // Executing query
-                String query = "SELECT * FROM login WHERE username = '" + user + "' AND password = '" + pass + "'";
+                String query = "SELECT * FROM userlogin WHERE username = '" + user + "' AND password = '" + pass + "'";
                 ResultSet rs = conn.s.executeQuery(query);
 
                 // Checking if any record found
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(null, "Login Successful!!");
                     this.setVisible(false);
-                    new home();
+                    new dashboard();
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid Credentials!!");
                 }
