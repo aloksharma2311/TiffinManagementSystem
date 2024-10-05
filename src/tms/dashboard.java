@@ -12,64 +12,55 @@ public class dashboard extends JFrame {
     public dashboard() {
         // Set frame to full screen
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        getContentPane().setBackground(Color.decode("#ffd13b"));
-
-        // Setting default close operation to exit the application when dashboard is closed
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Add a custom panel with background image
+        BackgroundPanel backgroundPanel = new BackgroundPanel();
+        backgroundPanel.setLayout(null); // Set layout manager to null for custom positioning
+        add(backgroundPanel); // Add the background panel to the frame
+
         // Dashboard button (does nothing)
-        JButton dashboardButton = new JButton("Dashboard");
-        dashboardButton.setBounds(30, 50, 250, 40);
-        dashboardButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        dashboardButton.setBorderPainted(false);
-        dashboardButton.setContentAreaFilled(false);
-        dashboardButton.setFocusPainted(false);
-        dashboardButton.setForeground(Color.BLACK);
-        addHoverEffect(dashboardButton); // Add hover effect
-        add(dashboardButton);
+        JButton dashboardButton = createButton("Dashboard", 25, 50);
+        backgroundPanel.add(dashboardButton);
 
         // Feedback button (opens feedback window)
-        JButton feedbackButton = new JButton("Feedback");
-        feedbackButton.setBounds(250, 50, 250, 40);
-        feedbackButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        feedbackButton.setBorderPainted(false);
-        feedbackButton.setContentAreaFilled(false);
-        feedbackButton.setFocusPainted(false);
-        feedbackButton.setForeground(Color.BLACK);
-        addHoverEffect(feedbackButton); // Add hover effect
+        JButton feedbackButton = createButton("Feedback", 270, 50);
         feedbackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 openFeedbackWindow(); // Opens feedback window
             }
         });
-        add(feedbackButton);
+        backgroundPanel.add(feedbackButton);
 
         // Profile button (opens profile window)
-        JButton profileButton = new JButton("Profile");
-        profileButton.setBounds(470, 50, 250, 40);
-        profileButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        profileButton.setBorderPainted(false);
-        profileButton.setContentAreaFilled(false);
-        profileButton.setFocusPainted(false);
-        profileButton.setForeground(Color.BLACK);
-        addHoverEffect(profileButton); // Add hover effect
+        JButton profileButton = createButton("Profile", 1250, 50);
         profileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 openProfileWindow(); // Opens profile window
             }
         });
-        add(profileButton);
-
-        // Set layout manager to null for custom positioning
-        setLayout(null);
+        backgroundPanel.add(profileButton);
 
         // Center the frame on the screen
         setLocationRelativeTo(null);
 
         // Make the frame visible
         setVisible(true);
+    }
+
+    // Method to create buttons
+    private JButton createButton(String text, int x, int y) {
+        JButton button = new JButton(text);
+        button.setBounds(x, y, 300, 40);
+        button.setFont(new Font("Tahoma", Font.PLAIN, 45));
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setForeground(Color.WHITE); // Set button text color to white
+        addHoverEffect(button); // Add hover effect
+        return button;
     }
 
     // Method to open the profile window
@@ -86,13 +77,17 @@ public class dashboard extends JFrame {
             @Override
             public void mouseEntered(MouseEvent e) {
                 button.setFont(hoverFont);
-                button.setForeground(Color.decode("#48311b")); // Change hover color to #48311b
+                button.setForeground(Color.decode("#ffffff")); // Change hover color to white
+                /*button.setBackground(Color.decode("#48311b")); // Set hover background color
+                button.setOpaque(true); // Make background visible*/
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 button.setFont(originalFont);
-                button.setForeground(Color.BLACK);
+                button.setForeground(Color.WHITE); // Maintain button text color
+                button.setBackground(null); // Reset to default background
+                button.setOpaque(false); // Make background transparent
             }
         });
     }
@@ -140,5 +135,44 @@ public class dashboard extends JFrame {
 
     public static void main(String[] args) {
         new dashboard();
+    }
+
+    // Custom panel class to handle background image
+    class BackgroundPanel extends JPanel {
+        private Image backgroundImage;
+
+        public BackgroundPanel() {
+            // Load the background image (make sure to provide the correct path)
+            ImageIcon icon = new ImageIcon("src/images/dashboard.png");
+            backgroundImage = icon.getImage();
+
+            // Check if the image is loaded successfully
+            if (icon.getIconWidth() == -1) {
+                System.out.println("Background image not found at the specified path!");
+            } else {
+                System.out.println("Background image loaded successfully.");
+            }
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            // Create a Graphics2D object from the Graphics context
+            Graphics2D g2d = (Graphics2D) g;
+
+            // Enable anti-aliasing for smoother scaling
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+            // Set a fallback background color
+            g2d.setColor(Color.YELLOW); // Change to any color you want
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+
+            // Draw the background image if loaded
+            if (backgroundImage != null) {
+                // Draw the image, scaling it to fit the panel
+                g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
     }
 }
