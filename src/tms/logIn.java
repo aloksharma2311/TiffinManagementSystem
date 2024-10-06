@@ -12,6 +12,7 @@ public class logIn extends JFrame implements ActionListener {
     JCheckBox showPasswordCheckBox;
 
     public logIn() {
+        setTitle("User Login");
         // Setting the frame size
         setSize(500, 350);
         getContentPane().setBackground(Color.decode("#ffd13b"));

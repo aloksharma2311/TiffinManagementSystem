@@ -14,6 +14,7 @@ public class profile extends JFrame implements ActionListener {
     JComboBox<String> genderComboBox; // Gender dropdown
 
     profile() {
+        setTitle("Profile");
         // Set frame size to full screen
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         getContentPane().setBackground(Color.decode("#ffd13b"));

@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 public class dashboard extends JFrame {
 
     public dashboard() {
+        setTitle("Dashboard");
         // Set frame to full screen
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,6 +44,17 @@ public class dashboard extends JFrame {
         });
         backgroundPanel.add(profileButton);
 
+        // Buy button (opens price window)
+        CapsuleButton buyButton = new CapsuleButton("Buy");
+        buyButton.setBounds(670, 820, 200, 70); // Set bounds for the buy button
+        buyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new price(); // Opens price window
+            }
+        });
+        backgroundPanel.add(buyButton);
+
         // Center the frame on the screen
         setLocationRelativeTo(null);
 
@@ -53,7 +65,7 @@ public class dashboard extends JFrame {
     // Method to create buttons
     private JButton createButton(String text, int x, int y) {
         JButton button = new JButton(text);
-        button.setBounds(x, y, 300, 40);
+        button.setBounds(x, y, 300, 60);
         button.setFont(new Font("Tahoma", Font.PLAIN, 45));
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
@@ -78,16 +90,12 @@ public class dashboard extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 button.setFont(hoverFont);
                 button.setForeground(Color.decode("#ffffff")); // Change hover color to white
-                /*button.setBackground(Color.decode("#48311b")); // Set hover background color
-                button.setOpaque(true); // Make background visible*/
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 button.setFont(originalFont);
                 button.setForeground(Color.WHITE); // Maintain button text color
-                button.setBackground(null); // Reset to default background
-                button.setOpaque(false); // Make background transparent
             }
         });
     }
@@ -110,7 +118,7 @@ public class dashboard extends JFrame {
         feedbackFrame.add(qrLabel);
 
         // Adding a QR Code Image (Set your image path here)
-        ImageIcon qrCodeIcon = new ImageIcon("D:/Coding/Java/TiffinManagementSystem/src/images/Feedback Form QR Code.png");
+        ImageIcon qrCodeIcon = new ImageIcon("src/images/Feedback Form QR Code.png");
 
         // Scale the image to fit within 300x300 without reducing resolution
         Image scaledImage = qrCodeIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH); // Maintains quality
@@ -173,6 +181,27 @@ public class dashboard extends JFrame {
                 // Draw the image, scaling it to fit the panel
                 g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
             }
+        }
+    }
+
+    // Custom CapsuleButton class for the Buy button
+    class CapsuleButton extends JButton {
+        public CapsuleButton(String text) {
+            super(text);
+            setFont(new Font("Tahoma", Font.PLAIN, 40));
+            setForeground(Color.WHITE); // Set text color to white
+            setBackground(new Color(139, 69, 19)); // Set background color to brown
+            setBorderPainted(false); // Remove border
+            setFocusPainted(false); // Remove focus border
+            setContentAreaFilled(false); // Make the button transparent
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            // Set the button shape to a capsule
+            g.setColor(getBackground());
+            g.fillRoundRect(0, 0, getWidth(), getHeight(), getHeight(), getHeight()); // Fill with rounded corners
+            super.paintComponent(g); // Call super to paint the text
         }
     }
 }

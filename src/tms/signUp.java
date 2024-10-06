@@ -14,6 +14,7 @@
         JComboBox<String> genderComboBox; // Gender dropdown
 
         signUp() {
+            setTitle("User Info");
             // Setting the frame size
             setSize(1000, 650);
             getContentPane().setBackground(Color.decode("#ffd13b"));
