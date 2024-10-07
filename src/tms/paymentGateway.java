@@ -21,7 +21,7 @@ public class paymentGateway extends JFrame {
         add(paymentLabel);*/
 
         // Adding a QR Code Image for payment
-        ImageIcon qrCode = new ImageIcon("src/images/Feedback Form QR Code.png");
+        ImageIcon qrCode = new ImageIcon("src/images/Payment QR Code.png");
 
         // Scale the image to fit within 300x300 without reducing resolution
         Image scaledImage = qrCode.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH); // Maintains quality
