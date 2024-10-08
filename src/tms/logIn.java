@@ -20,7 +20,7 @@ public class logIn extends JFrame implements ActionListener {
         // Setting default close operation
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//Closes the window
 
-        JLabel titleLabel = new JLabel("User LogIn");
+        JLabel titleLabel = new JLabel("User Login");
         titleLabel.setBounds(170, 20, 200, 30);
         titleLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
         titleLabel.setForeground(Color.BLACK);
