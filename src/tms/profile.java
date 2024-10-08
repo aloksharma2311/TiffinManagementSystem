@@ -30,7 +30,7 @@ public class profile extends JFrame implements ActionListener {
 
         // Create and position the save button
         save = new JButton("Save");
-        save.setBounds(470, 500, 100, 50);
+        save.setBounds(740, 500, 100, 50);
         save.setFont(new Font("Tahoma", Font.BOLD, 20));
         save.setBackground(Color.decode("#ffd13b"));
         save.setForeground(Color.black);
