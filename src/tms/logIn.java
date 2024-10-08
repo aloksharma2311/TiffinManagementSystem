@@ -18,7 +18,7 @@ public class logIn extends JFrame implements ActionListener {
         getContentPane().setBackground(Color.decode("#ffd13b"));
 
         // Setting default close operation
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//Closes the window
 
         JLabel titleLabel = new JLabel("User LogIn");
         titleLabel.setBounds(170, 20, 200, 30);
