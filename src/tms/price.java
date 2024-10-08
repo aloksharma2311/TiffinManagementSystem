@@ -23,7 +23,7 @@ public class price extends JFrame {
         titleLabel.setBounds(620, 100, 500, 60); // x, y, width, height
         add(titleLabel);
 
-        // Sub headings
+        // Sub-headings
         String[] planNames = {"Standard Tiffin Plan", "Premium Tiffin Plan", "Family Tiffin Plan", "Diet Tiffin Plan"};
         String[] standardPrices = {" Rs. 1200", "Rs. 4800", "Rs. 12500"};
         String[] premiumPrices = {"Rs. 1700", "Rs. 6500", "Rs. 18950"};
