@@ -29,7 +29,7 @@ public class logIn extends JFrame implements ActionListener {
         // Create a panel for the line
         JPanel linePanel = new JPanel();
         linePanel.setBackground(Color.decode("#d9d9d9")); // Set line color
-        linePanel.setBounds(80, 60, 325, 2); // Set position and thickness (2 pixels)
+        linePanel.setBounds(80, 60, 325, 2); // Set position and thickness (height of 2 pixels)
         add(linePanel);
 
         // Creating and positioning the username label
