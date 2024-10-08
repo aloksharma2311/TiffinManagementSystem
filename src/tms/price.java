@@ -12,7 +12,7 @@ public class price extends JFrame {
         getContentPane().setBackground(Color.decode("#ffd13b"));
         setSize(1400, 800);
 //        setExtendedState(JFrame.MAXIMIZED_BOTH); // Set frame to full screen
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //Hide this window when closed
 
         // Use absolute positioning
         setLayout(null);
